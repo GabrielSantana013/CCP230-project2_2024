@@ -24,7 +24,9 @@ typedef struct{
 }Livro;
 
 int exibirMenuVisitante();
-void limpabuffer();
+int exibirMenuAdm();
+void limpaBuffer();
+int verificaDigito(char *entrada);
 
 
 #endif

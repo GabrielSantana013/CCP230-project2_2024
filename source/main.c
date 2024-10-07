@@ -7,8 +7,10 @@ int main(){
 
     int menu;
     menu = exibirMenuVisitante();
+
+    if (menu == 2){ // Condição para teste
+        menu = exibirMenuAdm();
+    }
     
-
-
     return 0;
 }
