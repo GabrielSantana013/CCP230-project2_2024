@@ -11,10 +11,10 @@ int exibirMenuAdm(){
         printf("\nBem-vindo, administrador!\n");
         printf("Como deseja prosseguir?\n");
         printf("1 - Cadastrar livro\n");
-        printf("2 - Cadastrar cliente\n");
-        printf("3 - Consultar historico de cliente\n");
-        printf("4 - Consultar livro\n");
-        printf("5 - Gerar relatorio de vendas\n");
+        printf("2 - Consultar historico de cliente\n");
+        printf("3 - Consultar livro\n");
+        printf("4 - Gerar relatorio de vendas\n");
+        printf("5 - Gerar desconto\n");
         printf("6 - Sair\n");
         
         fgets(input, sizeof(input), stdin);
