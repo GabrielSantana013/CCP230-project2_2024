@@ -3,7 +3,6 @@
 int exibirMenuVisitante(){
 
     int menu;
-
     do
     {
         printf("Bem vindo a Livraria!\n");
