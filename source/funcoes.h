@@ -26,6 +26,8 @@ typedef struct{
 int exibirMenuVisitante();
 void limpaBuffer();
 int cadastrar(Usuario *ptrUsuario);
+int logar(Usuario *ptrUsuario);
+int verificarCPF(Usuario *ptrUsuario);
 
 
 #endif

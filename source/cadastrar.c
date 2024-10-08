@@ -39,7 +39,7 @@ int verificarCPF(Usuario *ptrUsuario){
 
     do
     {
-        
+
         printf("Digite seu CPF:\n");
         fgets(CPF, sizeof(CPF), stdin);
         tamanhoCPF = strlen(CPF);
@@ -76,6 +76,8 @@ int cadastrar(Usuario *ptrUsuario){
 
     FILE *ptrArquivo;
     int retorno;
+
+    printf("\nFuncao cadastrar\n");
     
     limpaBuffer();
     verificarCPF(ptrUsuario);
