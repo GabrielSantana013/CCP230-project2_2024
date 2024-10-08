@@ -18,7 +18,6 @@ int logar(Usuario *ptrUsuario){
     }
     else
     {
-        limpaBuffer();
         verificarCPF(ptrUsuario);
 
         printf("Digite sua senha: \n");

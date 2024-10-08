@@ -36,9 +36,6 @@ int main()
 
     } while (menu != 3);
 
-    if (menu == 2){ // Condição para teste
-        menu = exibirMenuAdm();
-    }
     
     return 0;
 }
