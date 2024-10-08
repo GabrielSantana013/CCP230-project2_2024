@@ -3,10 +3,10 @@
 
 typedef struct{
 
-    int usuarioId;
     char nome[50];
     char CPF[12];
     char senha[50];
+    int qttLivrosAlugados;
 
 
 }Usuario;
@@ -27,6 +27,9 @@ int exibirMenuVisitante();
 int exibirMenuAdm();
 void limpaBuffer();
 int verificaDigito(char *entrada);
+int cadastrar(Usuario *ptrUsuario);
+int logar(Usuario *ptrUsuario);
+int verificarCPF(Usuario *ptrUsuario);
 
 
 #endif
