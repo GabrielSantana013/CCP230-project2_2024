@@ -1,3 +1,6 @@
+# Vscode settings for workspace
+.vscode
+
 # Program generated files
 *.bin
 

@@ -1,17 +1,22 @@
 #include <stdio.h>
+#include "funcoes.h"
 
-int exibirMenuVisitante(){
-
+int exibirMenuVisitante() {
     int menu;
-    do
-    {
-        printf("Bem vindo a Livraria!\n");
+    char input[255];
+    char *ptrInput;
+
+    do {
+        printf("\nBem vindo a Livraria!\n");
         printf("1 - Realizar cadastro\n");
         printf("2 - Realizar login\n");
         printf("3 - Sair\n");
-        scanf("%d", &menu);
+        
+        fgets(input, sizeof(input), stdin);
+        ptrInput = input;
+        menu = verificaDigito(ptrInput);
 
-    }while(menu < 1 || menu > 3);
+    } while (menu < 1 || menu > 3);
 
     return menu;
 }
