@@ -79,7 +79,6 @@ int cadastrar(Usuario *ptrUsuario){
 
     printf("\nFuncao cadastrar\n");
     
-    limpaBuffer();
     verificarCPF(ptrUsuario);
     retorno = verificarCadastro(ptrUsuario);
 
