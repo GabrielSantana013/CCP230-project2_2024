@@ -7,6 +7,8 @@ int main()
 {
     //ponteiro para funcoes de visitante
     int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrar, logar};
+    //ponteiro para funcoes de clientes
+    int (*ptrFuncoesCliente[])(Usuario *) = {};
     Usuario usuario, *ptrUsuario;
     ptrUsuario = &usuario;
 
@@ -36,6 +38,16 @@ int main()
 
     } while (menu != 3);
 
+    do 
+    {
+        menu = exibirMenuCliente();
+        if(menu == 5)
+        {
+            break;
+        }
+
+
+    }while(menu != 5);
     
     return 0;
 }

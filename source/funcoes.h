@@ -7,6 +7,7 @@ typedef struct{
     char CPF[12];
     char senha[50];
     int qttLivrosAlugados;
+    int qttLivrosComprados;
 
 
 }Usuario;
@@ -20,6 +21,7 @@ typedef struct{
     int ano;
     int qttEstoque;
     float preco;
+    int status; //0 - disponivel, 1 - alugado, 2 - vendido
 
 }Livro;
 
