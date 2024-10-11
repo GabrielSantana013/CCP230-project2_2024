@@ -31,7 +31,7 @@ int verificarCadastro(Usuario *ptrUsuario){
 
 }
 
-int verificarCPF(Usuario *ptrUsuario){
+int validarCPF(Usuario *ptrUsuario){
 
     char CPF[255];
     size_t tamanhoCPF;
@@ -78,8 +78,11 @@ int cadastrar(Usuario *ptrUsuario){
     int retorno;
 
     printf("\nFuncao cadastrar\n");
-    
-    verificarCPF(ptrUsuario);
+
+    printf("Digite seu nome:\n");
+    fgets(ptrUsuario->nome, sizeof(ptrUsuario->nome), stdin);
+
+    validarCPF(ptrUsuario);
     retorno = verificarCadastro(ptrUsuario);
 
     if(retorno){return 1;} //usuario já cadastrado
@@ -87,13 +90,16 @@ int cadastrar(Usuario *ptrUsuario){
     printf("Digite sua senha:\n");
     fgets(ptrUsuario->senha, sizeof(ptrUsuario->senha), stdin);
 
-    ptrArquivo = fopen("clientes.bin", "rb+");
+    ptrArquivo = fopen("clientes.bin", "ab+");
 
     if(ptrArquivo == NULL)
     {
-        ptrArquivo = fopen("clientes.bin", "wb");
+        ptrArquivo = fopen("clientes.bin", "ab+");
     }
-
+    
+    ptrUsuario->qttLivrosAlugados = 0;
+    ptrUsuario->qttLivrosComprados = 0;
+    
     fwrite(ptrUsuario, sizeof(Usuario), 1, ptrArquivo);
     
     fclose(ptrArquivo);
