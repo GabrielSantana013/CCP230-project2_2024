@@ -73,13 +73,16 @@ int main()
             case 1:
                 cadastrarLivro();
                 break;
-            case 6:
+            case 2:
+                catalogarLivros();
+                break;
+            case 7:
                 break;
             default:
-                continue;;
+                continue;
             }
 
-        } while (menu != 6);
+        } while (menu != 7);
     }
 
     else if (retorno == 2)
@@ -87,12 +90,21 @@ int main()
         do
         {
             menu = exibirMenuCliente(ptrUsuario);
-            if (menu == 5)
+            switch (menu)
             {
+            case 1:
+                cadastrarLivro();
                 break;
+            case 2:
+                catalogarLivros();
+                break;
+            case 7:
+                break;
+            default:
+                continue;
             }
 
-        } while (menu != 5);
+        } while (menu != 6);
     }
 
     return 0;
