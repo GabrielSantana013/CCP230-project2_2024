@@ -3,29 +3,20 @@
 #include "funcoes.h"
 
 int cadastrarLivro(){
-    FILE *ptrArquivo;
-    Livro novo_livro;
-    size_t bytes = sizeof(Livro);
+    
+    FILE *ptrArquivoLivro;
+    Livro novo_livro, livro_anterior;
 
     printf("\n===CADASTRANDO LIVRO===\n");
-    ptrArquivo = fopen("livros.txt", "a+");
-    if (ptrArquivo == NULL)
+    ptrArquivoLivro = fopen("livros.txt", "a+");
+    if (ptrArquivoLivro == NULL)
     {
-        ptrArquivo = fopen("livros.txt", "w");
-        if (ptrArquivo == NULL)
+        ptrArquivoLivro = fopen("livros.txt", "w");
+        if (ptrArquivoLivro == NULL)
         {
             printf("Erro ao abrir o arquivo.\n");
             exit(1);
         }
-    }
-    fseek(ptrArquivo, 0, SEEK_END); // Aponta para o final do arquivo
-    long fileSize = ftell(ptrArquivo); // Pega o tamanho do arquivo
-    if (fileSize == 0) {
-        novo_livro.livroId = 1; // Primeiro livro
-    } else {
-        fseek(ptrArquivo, -bytes, SEEK_END); // Aponta para o ultimo livro
-        fread(&novo_livro, bytes, 1, ptrArquivo);
-        novo_livro.livroId += 1;
     }
     
     printf("Digite o titulo do livro: ");
@@ -36,13 +27,32 @@ int cadastrarLivro(){
     fgets(novo_livro.editora, sizeof(novo_livro.editora), stdin);
     printf("Digite o ano do livro: ");
     scanf("%d", &novo_livro.ano);
+    limpaBuffer();
     printf("Digite a quantidade em estoque: ");
     scanf("%d", &novo_livro.qttEstoque);
+    limpaBuffer();
     printf("Digite o preco do livro: ");
     scanf("%f", &novo_livro.preco);
-    novo_livro.status = 0;
-    fprintf(ptrArquivo, "ID: %d\nTitulo: %sAutor: %sEditora: %sAno: %d\nQuantidade: %d\nPreco: %.2f\nStatus: %d\n", novo_livro.livroId, novo_livro.titulo, novo_livro.autor, novo_livro.editora, novo_livro.ano, novo_livro.qttEstoque, novo_livro.preco, novo_livro.status);
+    limpaBuffer();
+    novo_livro.status = DISPONIVEL;
     
-    fclose(ptrArquivo);
+    long long int tamanhoArquivo;
+
+    fseek(ptrArquivoLivro, 0, SEEK_END);
+    tamanhoArquivo = ftell(ptrArquivoLivro);
+
+    if(tamanhoArquivo == 0)
+    {
+        novo_livro.livroId = 1;
+    }
+    else
+    {
+        fseek(ptrArquivoLivro, -sizeof(Livro), SEEK_END);
+        fread(&livro_anterior, sizeof(livro_anterior), 1, ptrArquivoLivro);
+        novo_livro.livroId = livro_anterior.livroId + 1;
+    }
+    
+    fwrite(&novo_livro, sizeof(novo_livro), 1, ptrArquivoLivro);
+    fclose(ptrArquivoLivro);
     return 0;
 }

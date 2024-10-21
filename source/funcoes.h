@@ -1,6 +1,10 @@
 #ifndef FUNCOES_H
 #define FUNCOES_H
 
+#define DISPONIVEL 0;
+#define ALUGADO 1;
+#define VENDIDO 2;
+
 typedef struct{
 
     char nome[50];
