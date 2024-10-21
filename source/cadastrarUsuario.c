@@ -39,14 +39,13 @@ int verificarCPF(Usuario *ptrUsuario){
 
     do
     {
-
         printf("Digite seu CPF:\n");
         fgets(CPF, sizeof(CPF), stdin);
         tamanhoCPF = strlen(CPF);
 
         if(tamanhoCPF <12 || tamanhoCPF > 13)
         {
-            printf("CPF Invalido\n");
+            printf("CPF invalido.\n");
         }
 
         numerico = 1;
@@ -60,10 +59,11 @@ int verificarCPF(Usuario *ptrUsuario){
         }
         if(!numerico)
         {
-            printf("O CPF deve conter apenas valores numericos\n");
+            printf("O CPF deve conter apenas valores numericos.\n\n");
             continue;
         }
 
+        printf("\n");
     } while(tamanhoCPF != 12 || !numerico);
 
     CPF[tamanhoCPF-1] = '\0';
@@ -72,12 +72,12 @@ int verificarCPF(Usuario *ptrUsuario){
     return 0;
 }
 
-int cadastrar(Usuario *ptrUsuario){
+int cadastrarUsuario(Usuario *ptrUsuario){
 
     FILE *ptrArquivo;
     int retorno;
 
-    printf("\nFuncao cadastrar\n");
+    printf("\n===CADASTRAR NOVO USUARIO===\n");
     
     verificarCPF(ptrUsuario);
     retorno = verificarCadastro(ptrUsuario);

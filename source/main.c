@@ -6,7 +6,7 @@
 int main()
 {
     //ponteiro para funcoes de visitante
-    int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrar, logar};
+    int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrarUsuario, logar};
     //ponteiro para funcoes de clientes
     int (*ptrFuncoesCliente[])(Usuario *) = {};
     Usuario usuario, *ptrUsuario;
@@ -19,7 +19,7 @@ int main()
         menu = (exibirMenuVisitante()) - 1;
         if(menu>3 && menu<1)
         {
-            printf("Opcao invalida\n");
+            printf("Opcao invalida.\n");
         }
         //opcao 3 é sair
         else if(menu == 2)
