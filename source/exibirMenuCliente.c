@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "funcoes.h"
 
 int exibirMenuCliente(){
     int menu;
