@@ -13,7 +13,7 @@ H_Source = $(wildcard ./source/*.h)
 
 #Variavel para limpeza
 RM = rm -f
-BINS = ./*.bin
+FILES = ./clientes.bin ./livros.txt
 
 #Regra Para Compilar o Programa
 
@@ -22,6 +22,6 @@ $(TARGET):$(C_Source) $(H_Source)
 
 #Regra para limpeza
 clean:
-	$(RM) $(TARGET) $(BINS)
+	$(RM) $(TARGET) $(FILES)
 
 .PHONY: all clean

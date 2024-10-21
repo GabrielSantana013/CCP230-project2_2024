@@ -32,6 +32,7 @@ int exibirMenuCliente(Usuario *ptrUsuario);
 void limpaBuffer();
 int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
+int cadastrarLivro();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
