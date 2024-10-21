@@ -31,7 +31,7 @@ int verificarCadastro(Usuario *ptrUsuario){
 
 }
 
-int validarCPF(Usuario *ptrUsuario){
+int verificarCPF(Usuario *ptrUsuario){
 
     char CPF[255];
     size_t tamanhoCPF;
@@ -39,14 +39,13 @@ int validarCPF(Usuario *ptrUsuario){
 
     do
     {
-
         printf("Digite seu CPF:\n");
         fgets(CPF, sizeof(CPF), stdin);
         tamanhoCPF = strlen(CPF);
 
         if(tamanhoCPF <12 || tamanhoCPF > 13)
         {
-            printf("CPF Invalido\n");
+            printf("CPF invalido.\n");
         }
 
         numerico = 1;
@@ -60,10 +59,11 @@ int validarCPF(Usuario *ptrUsuario){
         }
         if(!numerico)
         {
-            printf("O CPF deve conter apenas valores numericos\n");
+            printf("O CPF deve conter apenas valores numericos.\n\n");
             continue;
         }
 
+        printf("\n");
     } while(tamanhoCPF != 12 || !numerico);
 
     CPF[tamanhoCPF-1] = '\0';
@@ -72,17 +72,14 @@ int validarCPF(Usuario *ptrUsuario){
     return 0;
 }
 
-int cadastrar(Usuario *ptrUsuario){
+int cadastrarUsuario(Usuario *ptrUsuario){
 
     FILE *ptrArquivo;
     int retorno;
 
-    printf("\nFuncao cadastrar\n");
-
-    printf("Digite seu nome:\n");
-    fgets(ptrUsuario->nome, sizeof(ptrUsuario->nome), stdin);
-
-    validarCPF(ptrUsuario);
+    printf("\n===CADASTRAR NOVO USUARIO===\n");
+    
+    verificarCPF(ptrUsuario);
     retorno = verificarCadastro(ptrUsuario);
 
     if(retorno){return 1;} //usuario já cadastrado
@@ -90,16 +87,13 @@ int cadastrar(Usuario *ptrUsuario){
     printf("Digite sua senha:\n");
     fgets(ptrUsuario->senha, sizeof(ptrUsuario->senha), stdin);
 
-    ptrArquivo = fopen("clientes.bin", "ab+");
+    ptrArquivo = fopen("clientes.bin", "rb+");
 
     if(ptrArquivo == NULL)
     {
-        ptrArquivo = fopen("clientes.bin", "ab+");
+        ptrArquivo = fopen("clientes.bin", "wb");
     }
-    
-    ptrUsuario->qttLivrosAlugados = 0;
-    ptrUsuario->qttLivrosComprados = 0;
-    
+
     fwrite(ptrUsuario, sizeof(Usuario), 1, ptrArquivo);
     
     fclose(ptrArquivo);

@@ -44,7 +44,7 @@ int main()
         menu = (exibirMenuVisitante()) - 1;
         if (menu > 3 && menu < 1)
         {
-            printf("Opcao invalida\n");
+            printf("Opcao invalida.\n");
         }
         // opcao 3 é sair
         else if (menu == 2)
