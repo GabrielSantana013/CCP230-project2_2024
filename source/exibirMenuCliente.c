@@ -10,16 +10,17 @@ int exibirMenuCliente(Usuario *ptrUsuario){
     {
         printf("\nBem-vindo, %s\n", ptrUsuario->nome);
         printf("1 - Comprar livro\n");
-        printf("2 - Alugar livro\n");
-        printf("3 - Devolver livro\n");
-        printf("4 - Consultar historico de alugueis\n");
-        printf("5 - Sair\n");
+        printf("2 - Catalogar livros\n");
+        printf("3 - Alugar livro\n");
+        printf("4 - Devolver livro\n");
+        printf("5 - Consultar historico de alugueis\n");
+        printf("6 - Sair\n");
         
         fgets(input, sizeof(input), stdin);
         ptrInput = input;
         menu = verificaDigito(ptrInput);
 
-    }while(menu < 1 || menu > 5);
+    }while(menu < 1 || menu > 6);
 
     return menu;
 }

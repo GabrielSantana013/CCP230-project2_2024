@@ -11,17 +11,18 @@ int exibirMenuAdm(){
         printf("\nBem-vindo, administrador!\n");
         printf("Como deseja prosseguir?\n");
         printf("1 - Cadastrar livro\n");
-        printf("2 - Consultar historico de cliente\n");
-        printf("3 - Consultar livro\n");
-        printf("4 - Gerar relatorio de vendas\n");
-        printf("5 - Gerar desconto\n");
-        printf("6 - Sair\n");
+        printf("2 - Catalogar livros\n");
+        printf("3 - Consultar historico de cliente\n");
+        printf("4 - Consultar livro\n");
+        printf("5 - Gerar relatorio de vendas\n");
+        printf("6 - Gerar desconto\n");
+        printf("7 - Sair\n");
         
         fgets(input, sizeof(input), stdin);
         ptrInput = input;
         menu = verificaDigito(ptrInput);
 
-    }while(menu < 1 || menu > 6);
+    }while(menu < 1 || menu > 7);
 
     return menu;
 }
