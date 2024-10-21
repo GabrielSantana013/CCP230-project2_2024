@@ -84,16 +84,13 @@ int cadastrarUsuario(Usuario *ptrUsuario){
 
     if(retorno){return 1;} //usuario já cadastrado
 
+    printf("Digite seu nome:\n");
+    fgets(ptrUsuario->nome, sizeof(ptrUsuario->nome), stdin);
+
     printf("Digite sua senha:\n");
     fgets(ptrUsuario->senha, sizeof(ptrUsuario->senha), stdin);
 
-    ptrArquivo = fopen("clientes.bin", "rb+");
-
-    if(ptrArquivo == NULL)
-    {
-        ptrArquivo = fopen("clientes.bin", "wb");
-    }
-
+    ptrArquivo = fopen("clientes.bin", "ab+");
     fwrite(ptrUsuario, sizeof(Usuario), 1, ptrArquivo);
     
     fclose(ptrArquivo);
