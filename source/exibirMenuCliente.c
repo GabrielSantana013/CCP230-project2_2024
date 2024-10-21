@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include "funcoes.h"
 
-int exibirMenuCliente(){
+int exibirMenuCliente(Usuario *ptrUsuario){
     int menu;
     char input[255];
     char *ptrInput;
 
     do
     {
-        printf("\nBem-vindo, cliente!\n");
+        printf("\nBem-vindo, %s\n", ptrUsuario->nome);
         printf("1 - Comprar livro\n");
         printf("2 - Alugar livro\n");
         printf("3 - Devolver livro\n");
@@ -23,3 +23,10 @@ int exibirMenuCliente(){
 
     return menu;
 }
+
+/*
+
+ARRUMAR A MENSAGEM DE BEM-VINDO PARA VIR CORRETAMENTE COM O NOME DO USUÁRIO
+
+
+*/

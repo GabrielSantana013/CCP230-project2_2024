@@ -28,11 +28,13 @@ typedef struct{
 int exibirMenuVisitante();
 int exibirMenuCliente();
 int exibirMenuAdm();
+int exibirMenuCliente(Usuario *ptrUsuario);
 void limpaBuffer();
 int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
 int logar(Usuario *ptrUsuario);
-int verificarCPF(Usuario *ptrUsuario);
+int validarCPF(Usuario *ptrUsuario);
+int verificarCadastro(Usuario *ptrUsuario);
 
 
 #endif

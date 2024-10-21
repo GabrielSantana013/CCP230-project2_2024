@@ -5,10 +5,35 @@
 
 int main()
 {
-    //ponteiro para funcoes de visitante
+
+    // bloco para cadastrar o ADM caso não exista o arquivo clientes.bin
+    FILE *ptrArquivo;
+    ptrArquivo = fopen("clientes.bin", "rb+");
+    if (ptrArquivo == NULL)
+    {
+        ptrArquivo = fopen("clientes.bin", "wb+");
+        if (ptrArquivo == NULL)
+        {
+            printf("Erro ao abrir o arquivo\n");
+            exit(1);
+        }
+        else
+        {
+            Usuario usuario;
+            strcpy(usuario.CPF, "12312312312");
+            strcpy(usuario.nome, "admin\n");
+            strcpy(usuario.senha, "admin\n");
+            usuario.qttLivrosAlugados = 0;
+            usuario.qttLivrosComprados = 0;
+            fwrite(&usuario, sizeof(usuario), 1, ptrArquivo);
+        }
+    }
+    fclose(ptrArquivo);
+
+    // ponteiro para funcoes de visitante
     int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrarUsuario, logar};
-    //ponteiro para funcoes de clientes
-    int (*ptrFuncoesCliente[])(Usuario *) = {};
+    // ponteiro para funcoes de clientes
+    // int (*ptrFuncoesCliente[])(Usuario *) = {};
     Usuario usuario, *ptrUsuario;
     ptrUsuario = &usuario;
 
@@ -17,12 +42,12 @@ int main()
     do
     {
         menu = (exibirMenuVisitante()) - 1;
-        if(menu>3 && menu<1)
+        if (menu > 3 && menu < 1)
         {
             printf("Opcao invalida.\n");
         }
-        //opcao 3 é sair
-        else if(menu == 2)
+        // opcao 3 é sair
+        else if (menu == 2)
         {
             exit(0);
         }
@@ -30,7 +55,7 @@ int main()
         {
             retorno = ptrFuncoesVisitante[menu](ptrUsuario);
 
-            if(retorno == 2)
+            if (retorno == 2 || retorno == 3)
             {
                 break;
             }
@@ -38,16 +63,31 @@ int main()
 
     } while (menu != 3);
 
-    do 
+    if (retorno == 3)
     {
-        menu = exibirMenuCliente();
-        if(menu == 5)
+        do
         {
-            break;
-        }
+            menu = exibirMenuAdm();
+            if (menu == 6)
+            {
+                break;
+            }
 
+        } while (menu != 6);
+    }
 
-    }while(menu != 5);
-    
+    else if (retorno == 2)
+    {
+        do
+        {
+            menu = exibirMenuCliente(ptrUsuario);
+            if (menu == 5)
+            {
+                break;
+            }
+
+        } while (menu != 5);
+    }
+
     return 0;
 }
