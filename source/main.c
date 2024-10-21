@@ -31,7 +31,7 @@ int main()
     fclose(ptrArquivo);
 
     // ponteiro para funcoes de visitante
-    int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrar, logar};
+    int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrarUsuario, logar};
     // ponteiro para funcoes de clientes
     // int (*ptrFuncoesCliente[])(Usuario *) = {};
     Usuario usuario, *ptrUsuario;
