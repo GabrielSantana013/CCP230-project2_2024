@@ -3,6 +3,7 @@
 
 # Program generated files
 *.bin
+*.txt
 
 # Prerequisites
 *.d

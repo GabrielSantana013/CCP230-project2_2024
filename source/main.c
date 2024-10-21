@@ -68,9 +68,15 @@ int main()
         do
         {
             menu = exibirMenuAdm();
-            if (menu == 6)
+            switch (menu)
             {
+            case 1:
+                cadastrarLivro();
                 break;
+            case 6:
+                break;
+            default:
+                continue;;
             }
 
         } while (menu != 6);

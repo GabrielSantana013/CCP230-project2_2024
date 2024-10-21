@@ -1,6 +1,10 @@
 #ifndef FUNCOES_H
 #define FUNCOES_H
 
+#define DISPONIVEL 0;
+#define ALUGADO 1;
+#define VENDIDO 2;
+
 typedef struct{
 
     char nome[50];
@@ -32,6 +36,7 @@ int exibirMenuCliente(Usuario *ptrUsuario);
 void limpaBuffer();
 int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
+int cadastrarLivro();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
