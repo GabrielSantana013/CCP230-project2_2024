@@ -14,7 +14,7 @@ int main()
         ptrArquivo = fopen("clientes.bin", "wb+");
         if (ptrArquivo == NULL)
         {
-            printf("Erro ao abrir o arquivo\n");
+            printf("Erro ao abrir o arquivo.\n");
             exit(1);
         }
         else
