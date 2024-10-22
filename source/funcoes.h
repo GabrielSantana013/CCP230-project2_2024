@@ -59,6 +59,7 @@ int cadastrarUsuario(Usuario *ptrUsuario);
 int cadastrarLivro();
 int catalogarLivros();
 int consultarHistorico();
+int consultarLivro();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
