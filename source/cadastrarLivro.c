@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "funcoes.h"
 
 int cadastrarLivro(){
@@ -8,10 +9,10 @@ int cadastrarLivro(){
     Livro novo_livro, livro_anterior;
 
     printf("\n===CADASTRANDO LIVRO===\n");
-    ptrArquivoLivro = fopen("livros.txt", "a+");
+    ptrArquivoLivro = fopen("catalogo.txt", "a+");
     if (ptrArquivoLivro == NULL)
     {
-        ptrArquivoLivro = fopen("livros.txt", "w");
+        ptrArquivoLivro = fopen("catalogo.txt", "w");
         if (ptrArquivoLivro == NULL)
         {
             printf("Erro ao abrir o arquivo.\n");
@@ -19,23 +20,90 @@ int cadastrarLivro(){
         }
     }
     
-    printf("Digite o titulo do livro: ");
-    fgets(novo_livro.titulo, sizeof(novo_livro.titulo), stdin);
-    printf("Digite o autor do livro: ");
-    fgets(novo_livro.autor, sizeof(novo_livro.autor), stdin);
-    printf("Digite a editora do livro: ");
-    fgets(novo_livro.editora, sizeof(novo_livro.editora), stdin);
-    printf("Digite o ano do livro: ");
-    scanf("%d", &novo_livro.ano);
-    limpaBuffer();
-    printf("Digite a quantidade em estoque: ");
-    scanf("%d", &novo_livro.qttEstoque);
-    limpaBuffer();
-    printf("Digite o preco do livro: ");
-    scanf("%f", &novo_livro.preco);
-    limpaBuffer();
-    novo_livro.status = DISPONIVEL;
-    
+    int dadosValidos;
+    dadosValidos = 1; // Assume que os dados são válidos
+    do {
+        char titulo[256];
+        printf("Digite o titulo do livro: ");
+        fgets(titulo, sizeof(titulo), stdin);
+        if (strlen(titulo) > 50) {
+            printf("Titulo muito longo. Deve ter no maximo 50 caracteres.\n");
+            dadosValidos = 0;
+            continue;
+        }
+        strcpy(novo_livro.titulo, titulo);
+        dadosValidos = 1;
+    } while (!dadosValidos);
+
+    do {
+        char autor[256];
+        printf("Digite o autor do livro: ");
+        fgets(autor, sizeof(autor), stdin);
+        if (strlen(autor) > 50) {
+            printf("Autor muito longo. Deve ter no maximo 50 caracteres.\n");
+            dadosValidos = 0;
+            continue;
+        }
+        strcpy(novo_livro.autor, autor);
+        dadosValidos = 1;
+    } while (!dadosValidos);
+
+    do {
+        char editora[256];
+        printf("Digite a editora do livro: ");
+        fgets(editora, sizeof(editora), stdin);
+        if (strlen(editora) > 50) {
+            printf("Editora muito longa. Deve ter no maximo 50 caracteres.\n");
+            dadosValidos = 0;
+            continue;
+        }
+        strcpy(novo_livro.editora, editora);
+        dadosValidos = 1;
+    } while (!dadosValidos);
+
+    do {
+        printf("Digite o ano do livro: ");
+        char anoStr[10];
+        if (scanf("%s", anoStr) != 1 || verificaDigito(anoStr) == 0) {
+            printf("Ano invalido.\n");
+            dadosValidos = 0;
+            continue;
+        }
+        limpaBuffer();
+        novo_livro.ano = atoi(anoStr);
+        dadosValidos = 1;
+    } while (!dadosValidos);
+
+    do {
+        printf("Digite a quantidade em estoque: ");
+        char qttEstoqueStr[10];
+        if (scanf("%s", qttEstoqueStr) != 1 || verificaDigito(qttEstoqueStr) == 0) {
+            printf("Quantidade em estoque invalida.\n");
+            dadosValidos = 0;
+            continue;
+        }
+        limpaBuffer();
+        novo_livro.qttEstoque = atoi(qttEstoqueStr);
+        dadosValidos = 1;
+    } while (!dadosValidos);
+
+    do {
+        printf("Digite o preco do livro: ");
+        char precoStr[10];
+        if (scanf("%s", precoStr) != 1 || atof(precoStr) == 0) {
+            printf("Preco invalido.\n");
+            dadosValidos = 0;
+            continue;
+        }
+        limpaBuffer();
+        novo_livro.preco = atof(precoStr);
+        dadosValidos = 1;
+
+        if (dadosValidos) {
+            novo_livro.status = DISPONIVEL;
+        }
+    } while (!dadosValidos);
+
     long long int tamanhoArquivo;
 
     fseek(ptrArquivoLivro, 0, SEEK_END);

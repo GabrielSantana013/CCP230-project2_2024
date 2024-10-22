@@ -13,7 +13,7 @@ H_Source = $(wildcard ./source/*.h)
 
 #Variavel para limpeza
 RM = rm -f
-FILES = ./clientes.bin ./livros.txt
+FILES = ./*.bin ./*.txt
 
 #Regra Para Compilar o Programa
 
