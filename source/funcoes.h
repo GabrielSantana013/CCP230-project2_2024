@@ -29,6 +29,14 @@ typedef struct{
 
 }Livro;
 
+typedef struct{
+
+    Livro *livros;
+    size_t capacidade; //quantos livros cabem no carrinho
+    size_t tamanho; //quantos livros já tem no carrinho
+
+}Carrinho;
+
 int exibirMenuVisitante();
 int exibirMenuCliente();
 int exibirMenuAdm();
@@ -37,10 +45,10 @@ void limpaBuffer();
 int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
 int cadastrarLivro();
-void catalogarLivros();
+int catalogarLivros();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
-
+int carrinhoDeCompras(Usuario *ptrUsuario);
 
 #endif

@@ -10,7 +10,7 @@ int exibirMenuCliente(Usuario *ptrUsuario){
     {
         printf("\nBem-vindo, %s\n", ptrUsuario->nome);
         printf("1 - Comprar livro\n");
-        printf("2 - Catalogar livros\n");
+        printf("2 - Exibir Catalogo\n");
         printf("3 - Alugar livro\n");
         printf("4 - Devolver livro\n");
         printf("5 - Consultar historico de alugueis\n");
@@ -24,10 +24,3 @@ int exibirMenuCliente(Usuario *ptrUsuario){
 
     return menu;
 }
-
-/*
-
-ARRUMAR A MENSAGEM DE BEM-VINDO PARA VIR CORRETAMENTE COM O NOME DO USUÁRIO
-
-
-*/

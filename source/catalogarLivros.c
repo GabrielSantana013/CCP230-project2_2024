@@ -3,7 +3,7 @@
 #include <string.h>
 #include "funcoes.h"
 
-void catalogarLivros(){
+int catalogarLivros(){
     FILE *ptrArquivo;
     Livro livro_atual;
     size_t bytes = sizeof(Livro);
@@ -11,7 +11,7 @@ void catalogarLivros(){
     ptrArquivo = fopen("livros.txt", "r");
     if(ptrArquivo == NULL){
         printf("Ainda nao ha catalogo.\n");
-        return;
+        return 1;
     }
 
     printf("\n");
@@ -34,4 +34,5 @@ void catalogarLivros(){
     }
 
     fclose(ptrArquivo);
+    return 0;
 }
