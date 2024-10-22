@@ -20,7 +20,7 @@ int main()
         else
         {
             Usuario usuario;
-            strcpy(usuario.CPF, "12312312312");
+            strcpy(usuario.CPF, "12312312312\n");
             strcpy(usuario.nome, "admin\n");
             strcpy(usuario.senha, "admin\n");
             usuario.qttLivrosAlugados = 0;
@@ -32,8 +32,12 @@ int main()
 
     // ponteiro para funcoes de visitante
     int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrarUsuario, logar};
+
     // ponteiro para funcoes de clientes
     // int (*ptrFuncoesCliente[])(Usuario *) = {};
+
+    // ponteiro para funcoes de adm
+    int (*ptrFuncoesAdm[])() = {cadastrarLivro, catalogarLivros};
     Usuario usuario, *ptrUsuario;
     ptrUsuario = &usuario;
 
@@ -42,12 +46,8 @@ int main()
     do
     {
         menu = (exibirMenuVisitante()) - 1;
-        if (menu > 3 && menu < 1)
-        {
-            printf("Opcao invalida.\n");
-        }
         // opcao 3 é sair
-        else if (menu == 2)
+        if (menu == 2)
         {
             exit(0);
         }
@@ -67,22 +67,18 @@ int main()
     {
         do
         {
-            menu = exibirMenuAdm();
-            switch (menu)
+            menu = (exibirMenuAdm())-1;
+            // opcao 7 é sair
+            if(menu == 6)
             {
-            case 1:
-                cadastrarLivro();
-                break;
-            case 2:
-                catalogarLivros();
-                break;
-            case 7:
-                break;
-            default:
-                continue;
+                exit(0);
+            }
+            else
+            {
+                ptrFuncoesAdm[menu]();
             }
 
-        } while (menu != 7);
+        } while (menu != 6);
     }
 
     else if (retorno == 2)
