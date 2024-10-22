@@ -30,6 +30,18 @@ typedef struct{
 }Livro;
 
 typedef struct{
+    char CPF[12];
+    char nome[50];
+    char data[11];
+    char tipo[10];
+    char titulo[50];
+    char autor[50];
+    float preco;
+    int quantidade;
+    float total;
+} Historico;
+
+typedef struct{
 
     Livro *livros;
     size_t capacidade; //quantos livros cabem no carrinho
@@ -46,6 +58,7 @@ int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
 int cadastrarLivro();
 int catalogarLivros();
+int consultarHistorico();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
