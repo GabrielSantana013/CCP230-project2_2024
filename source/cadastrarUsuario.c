@@ -66,7 +66,6 @@ int verificarCPF(Usuario *ptrUsuario){
         printf("\n");
     } while(tamanhoCPF != 12 || !numerico);
 
-    CPF[tamanhoCPF-1] = '\0';
     strcpy(ptrUsuario->CPF, CPF);
 
     return 0;
