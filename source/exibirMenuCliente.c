@@ -7,7 +7,7 @@ int exibirMenuCliente(Usuario *ptrUsuario){
 
     do
     {
-        printf("\nBem-vindo, %s\n", ptrUsuario->nome);
+        printf("\nBem-vindo, %s", ptrUsuario->nome);
         printf("1 - Exibir Catalogo\n");
         printf("2 - Alugar livro\n");
         printf("3 - Devolver livro\n");

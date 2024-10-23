@@ -87,23 +87,6 @@ int cadastrarLivro(){
         dadosValidos = 1;
     } while (!dadosValidos);
 
-    do {
-        printf("Digite o preco do livro: ");
-        char precoStr[10];
-        if (scanf("%s", precoStr) != 1 || atof(precoStr) == 0) {
-            printf("Preco invalido.\n");
-            dadosValidos = 0;
-            continue;
-        }
-        limpaBuffer();
-        novo_livro.preco = atof(precoStr);
-        dadosValidos = 1;
-
-        if (dadosValidos) {
-            novo_livro.status = DISPONIVEL;
-        }
-    } while (!dadosValidos);
-
     long long int tamanhoArquivo;
 
     fseek(ptrArquivoLivro, 0, SEEK_END);

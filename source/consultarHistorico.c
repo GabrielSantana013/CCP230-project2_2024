@@ -24,7 +24,6 @@ int consultarHistorico(Usuario *usuario)
                 printf("Tipo: %s\n", historico.tipo);
                 printf("Titulo: %s\n", historico.titulo);
                 printf("Autor: %s\n", historico.autor);
-                printf("Preco: %.2f\n", historico.preco);
                 printf("Quantidade: %d\n", historico.quantidade);
                 printf("Total: %.2f\n", historico.total);
                 printf("\n");

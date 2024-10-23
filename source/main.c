@@ -20,7 +20,7 @@ int main()
         else
         {
             Usuario usuario;
-            strcpy(usuario.CPF, "12312312312\n");
+            strcpy(usuario.CPF, "12312312312");
             strcpy(usuario.nome, "admin\n");
             strcpy(usuario.senha, "admin\n");
             usuario.qttLivrosAlugados = 0;
