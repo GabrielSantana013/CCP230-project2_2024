@@ -23,8 +23,7 @@ typedef struct{
     char editora[50];
     int ano;
     int qttEstoque;
-    float preco;
-    int status; //0 - disponivel, 1 - alugado, 2 - vendido
+    int status; //0 - disponivel, 1 - alugado
 
 }Livro;
 
@@ -35,7 +34,6 @@ typedef struct{
     char tipo[10];
     char titulo[50];
     char autor[50];
-    float preco;
     int quantidade;
     float total;
 } Historico;
