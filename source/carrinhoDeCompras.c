@@ -112,7 +112,7 @@ Livro buscaLivro(int id)
 
     int achado = 0;
 
-    ptrArquivo = fopen("livros.txt", "r");
+    ptrArquivo = fopen("catalogo.txt", "r");
 
     if (ptrArquivo == NULL)
     {

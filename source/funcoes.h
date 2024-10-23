@@ -3,7 +3,6 @@
 
 #define DISPONIVEL 0;
 #define ALUGADO 1;
-#define VENDIDO 2;
 
 typedef struct{
 
@@ -45,11 +44,12 @@ void limpaBuffer();
 int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
 int cadastrarLivro();
-int catalogarLivros(Usuario *ptrUsuario);
+int catalogarLivros();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
 int carrinhoDeCompras(Usuario *ptrUsuario);
+int exibirLivrosClientes(Usuario *ptrUsuario);
 
 
 #endif
