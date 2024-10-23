@@ -3,7 +3,7 @@
 #include <string.h>
 #include "funcoes.h"
 
-int catalogarLivros(){
+int catalogarLivros(Usuario *ptrUsuario){
     FILE *ptrArquivo;
     Livro livro_atual;
     size_t bytes = sizeof(Livro);
