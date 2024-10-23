@@ -2,25 +2,22 @@
 #include "funcoes.h"
 
 int exibirMenuCliente(Usuario *ptrUsuario){
+    
     int menu;
-    char input[255];
-    char *ptrInput;
 
     do
     {
         printf("\nBem-vindo, %s\n", ptrUsuario->nome);
-        printf("1 - Comprar livro\n");
-        printf("2 - Exibir Catalogo\n");
-        printf("3 - Alugar livro\n");
-        printf("4 - Devolver livro\n");
-        printf("5 - Consultar historico de alugueis\n");
-        printf("6 - Sair\n");
-        
-        fgets(input, sizeof(input), stdin);
-        ptrInput = input;
-        menu = verificaDigito(ptrInput);
+        printf("1 - Exibir Catalogo\n");
+        printf("2 - Alugar livro\n");
+        printf("3 - Devolver livro\n");
+        printf("4 - Consultar historico de alugueis\n");
+        printf("5 - Sair\n");
+        scanf("%d", &menu);
+        limpaBuffer();
 
-    }while(menu < 1 || menu > 6);
+
+    }while(menu < 1 || menu > 5);
 
     return menu;
 }

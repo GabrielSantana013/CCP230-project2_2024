@@ -45,10 +45,11 @@ void limpaBuffer();
 int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
 int cadastrarLivro();
-int catalogarLivros();
+int catalogarLivros(Usuario *ptrUsuario);
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
 int carrinhoDeCompras(Usuario *ptrUsuario);
+
 
 #endif

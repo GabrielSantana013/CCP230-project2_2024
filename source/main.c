@@ -34,7 +34,7 @@ int main()
     int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrarUsuario, logar};
 
     // ponteiro para funcoes de clientes
-    // int (*ptrFuncoesCliente[])(Usuario *) = {};
+    int (*ptrFuncoesCliente[])(Usuario *) = {carrinhoDeCompras};
 
     // ponteiro para funcoes de adm
     int (*ptrFuncoesAdm[])() = {cadastrarLivro, catalogarLivros};
@@ -85,22 +85,18 @@ int main()
     {
         do
         {
-            menu = exibirMenuCliente(ptrUsuario);
-            switch (menu)
+            menu = (exibirMenuCliente(ptrUsuario)) - 1;
+            // opcao 5 é sair
+            if(menu == 4)
             {
-            case 1:
-                cadastrarLivro();
-                break;
-            case 2:
-                catalogarLivros();
-                break;
-            case 7:
-                break;
-            default:
-                continue;
+                exit(0);
+            }
+            else
+            {
+                ptrFuncoesCliente[menu](ptrUsuario);
             }
 
-        } while (menu != 6);
+        } while (menu != 4);
     }
 
     return 0;
