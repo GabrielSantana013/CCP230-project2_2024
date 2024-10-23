@@ -30,9 +30,10 @@ typedef struct{
 typedef struct{
     char CPF[12];
     char nome[50];
-    char data[11];
+    char data[20];
     char titulo[50];
     char autor[50];
+    char editora[50];
     int quantidade;
 } Historico;
 
@@ -61,6 +62,7 @@ int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
 int verificarSenha(Usuario *ptrUsuario);
 int carrinhoDeCompras(Usuario *ptrUsuario);
+int gerarHistorico(Carrinho *carrinho, Usuario *ptrUsuario);
 int exibirLivrosClientes(Usuario *ptrUsuario);
 
 
