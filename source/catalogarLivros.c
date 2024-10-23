@@ -18,11 +18,11 @@ int catalogarLivros()
 
     printf("\n");
     // Imprime o cabeçalho da tabela
-    printf("%5s | %-50s | %-50s | %-50s | %-5s | %-10s | %-13s | %-7s\n",
-           "ID", "Titulo", "Autor", "Editora", "Ano", "Quantidade", "Preco", "Status");
+    printf("%5s | %-50s | %-50s | %-50s | %-5s | %-10s | %-7s\n",
+           "ID", "Titulo", "Autor", "Editora", "Ano", "Quantidade", "Status");
     printf("--------------------------------------------------------------------------");
     printf("--------------------------------------------------------------------------");
-    printf("---------------------------------------------------------------------\n");
+    printf("-------------------------------------------------------------\n");
 
     while (fread(&livro_atual, bytes, 1, ptrArquivo) == 1)
     {
@@ -33,15 +33,15 @@ int catalogarLivros()
 
         if (livro_atual.status == 0)
         {
-            printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | R$ %-10.2f | %-7s\n",
+            printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | %-7s\n",
                    livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
-                   livro_atual.ano, livro_atual.qttEstoque, livro_atual.preco, "Disponivel");
+                   livro_atual.ano, livro_atual.qttEstoque, "Disponivel");
         }
         else if (livro_atual.status == 1)
         {
-            printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | R$ %-10.2f | %-7s\n",
+            printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | %-7s\n",
                    livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
-                   livro_atual.ano, livro_atual.qttEstoque, livro_atual.preco, "Alugado");
+                   livro_atual.ano, livro_atual.qttEstoque, "Alugado");
         }
     }
 
