@@ -60,6 +60,7 @@ int consultarLivro();
 int logar(Usuario *ptrUsuario);
 int verificarCPF(Usuario *ptrUsuario);
 int verificarCadastro(Usuario *ptrUsuario);
+int verificarSenha(Usuario *ptrUsuario);
 int carrinhoDeCompras(Usuario *ptrUsuario);
 int exibirLivrosClientes(Usuario *ptrUsuario);
 

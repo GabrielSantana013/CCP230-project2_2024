@@ -9,30 +9,29 @@ int exibirLivrosClientes(Usuario *ptrUsuario)
     FILE *ptrArquivo;
     Livro livro_atual;
     size_t bytes = sizeof(Livro);
-    char CPF[12];
+    char senha[255];
+    int retorno = 0;
 
-    printf("Digite seu CPF: ");
-    fgets(CPF, sizeof(CPF), stdin);
+    printf("Digite sua senha: ");
+    fgets(senha, sizeof(senha), stdin);
+    strcpy(ptrUsuario->senha, senha);
+    retorno = verificarSenha(ptrUsuario);
 
-    if (strcmp(CPF, ptrUsuario->CPF) != 0)
-    {
-        printf("CPF invalido.\n");
-        return -1;
-    }
-    else
+    if (retorno)
     {
         ptrArquivo = fopen("catalogo.txt", "r");
 
         if (ptrArquivo == NULL)
         {
-            printf("Erro ao abrir o arquivo.\n");
+            printf("Nenhum livro registrado no catalogo.\n");
             return -1;
         }
         else
         {
+            printf("\n");
             // Imprime o cabeçalho da tabela
             printf("%5s | %-50s | %-50s | %-50s | %-5s | %-10s | %-7s\n",
-                   "ID", "Titulo", "Autor", "Editora", "Ano", "Quantidade", "Status");
+                    "ID", "Titulo", "Autor", "Editora", "Ano", "Quantidade", "Status");
             printf("--------------------------------------------------------------------------");
             printf("--------------------------------------------------------------------------");
             printf("---------------------------------------------------------------------\n");
@@ -46,20 +45,25 @@ int exibirLivrosClientes(Usuario *ptrUsuario)
 
                 if (livro_atual.status == 0)
                 {
-                    printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | R$ %-10.2f | %-7s\n",
-                           livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
-                           livro_atual.ano, livro_atual.qttEstoque, livro_atual.preco, "Disponivel");
+                    printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | %-7s\n",
+                            livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
+                            livro_atual.ano, livro_atual.qttEstoque, "Disponivel");
                 }
                 else if (livro_atual.status == 1)
                 {
-                    printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | R$ %-10.2f | %-7s\n",
-                           livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
-                           livro_atual.ano, livro_atual.qttEstoque, livro_atual.preco, "Alugado");
+                    printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | %-7s\n",
+                            livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
+                            livro_atual.ano, livro_atual.qttEstoque, "Alugado");
                 }
             }
+
+            fclose(ptrArquivo);
         }
     }
-
-    fclose(ptrArquivo);
+    else
+    {
+        printf("Senha incorreta.\n");
+    }
+    
     return 0;
 }

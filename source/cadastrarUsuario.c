@@ -4,6 +4,30 @@
 #include <ctype.h>
 #include "funcoes.h"
 
+int verificarSenha(Usuario *ptrUsuario){
+
+    FILE *ptrArquivo = fopen("clientes.bin", "rb");
+    Usuario usuario;
+
+    if(ptrArquivo == NULL)
+    {
+        perror("Erro ao abrir o arquivo");
+        return 0;
+    }
+
+    while(fread(&usuario, sizeof(usuario), 1, ptrArquivo) == 1)
+    {
+        if(strcmp(usuario.senha, ptrUsuario->senha) == 0)
+        {
+            fclose(ptrArquivo);
+            return 1;
+        }
+    }
+
+    fclose(ptrArquivo);
+    return 0;
+
+}
 
 int verificarCadastro(Usuario *ptrUsuario){
 
@@ -12,20 +36,19 @@ int verificarCadastro(Usuario *ptrUsuario){
 
     if(ptrArquivo == NULL)
     {
+        perror("Erro ao abrir o arquivo");
         return 0;
     }
-    else
+
+    while(fread(&usuario, sizeof(usuario), 1, ptrArquivo) == 1)
     {
-        while(fread(&usuario, sizeof(usuario), 1, ptrArquivo) == 1)
+        if(strcmp(usuario.CPF, ptrUsuario->CPF) == 0)
         {
-            if(strcmp(usuario.CPF, ptrUsuario->CPF) == 0)
-            {
-                printf("CPF ja cadastrado\n");
-                fclose(ptrArquivo);
-                return 1;
-            }
+            fclose(ptrArquivo);
+            return 1;
         }
     }
+
     fclose(ptrArquivo);
     return 0;
 
@@ -66,6 +89,7 @@ int verificarCPF(Usuario *ptrUsuario){
         printf("\n");
     } while(tamanhoCPF != 12 || !numerico);
 
+    CPF[tamanhoCPF-1] = '\0';
     strcpy(ptrUsuario->CPF, CPF);
 
     return 0;
@@ -81,12 +105,15 @@ int cadastrarUsuario(Usuario *ptrUsuario){
     verificarCPF(ptrUsuario);
     retorno = verificarCadastro(ptrUsuario);
 
-    if(retorno){return 1;} //usuario já cadastrado
+    if(retorno){
+        printf("CPF ja cadastrado\n");
+        return 1;
+    } //usuario já cadastrado
 
     printf("Digite seu nome:\n");
     fgets(ptrUsuario->nome, sizeof(ptrUsuario->nome), stdin);
 
-    printf("Digite sua senha:\n");
+    printf("\nDigite sua senha:\n");
     fgets(ptrUsuario->senha, sizeof(ptrUsuario->senha), stdin);
 
     ptrArquivo = fopen("clientes.bin", "ab+");
