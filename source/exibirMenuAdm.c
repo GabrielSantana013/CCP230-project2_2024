@@ -14,7 +14,7 @@ int exibirMenuAdm(){
         printf("2 - Catalogar livros\n");
         printf("3 - Consultar historico de cliente\n");
         printf("4 - Consultar livro\n");
-        printf("5 - Gerar relatorio de vendas\n");
+        printf("5 - Gerar relatorio de alugueis\n");
         printf("6 - Sair\n");
         
         fgets(input, sizeof(input), stdin);
