@@ -212,7 +212,7 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                 char senha[255];
                 int retorno;
 
-                printf("Finalizando compra...\n");
+                printf("\nFinalizando compra...\n");
                 printf("Digite sua senha: ");
                 fgets(senha, sizeof(senha), stdin);
                 strcpy(ptrUsuario->senha, senha);

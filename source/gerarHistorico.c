@@ -7,11 +7,13 @@
 int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
 {
     FILE *ptrArquivoHistorico;
+    Historico historico;
+
     ptrArquivoHistorico = fopen("historico.bin", "ab+");
     if (ptrArquivoHistorico == NULL)
     {
         printf("Erro ao abrir o arquivo.\n");
-        exit(1);
+        return 1;
     }
     else
     {
@@ -21,7 +23,6 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
         char data[20];
         sprintf(data, "%02d/%02d/%02d %02d:%02d:%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year % 100, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
-        Historico historico;
         strcpy(historico.CPF, usuario->CPF);
         historico.CPF[strcspn(historico.CPF, "\n")] = 0; // retira o \n
         strcpy(historico.nome, usuario->nome);
@@ -43,6 +44,7 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
     fclose(ptrArquivoHistorico);
 
     FILE *ptrArquivoCatalogo;
+    FILE *ptrArquivoAlugados;
     // decrementa 1 da quantidade de livros no estoque
     ptrArquivoCatalogo = fopen("catalogo.txt", "r+");
 
@@ -75,6 +77,19 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
                     {
                         // Ajusta a quantidade de estoque
                         livro_atual.qttEstoque--;
+                        
+                        ptrArquivoAlugados = fopen("alugados.bin", "ab+");
+                        if (ptrArquivoAlugados == NULL)
+                        {
+                            printf("Erro ao abrir o arquivo.\n");
+                            fclose(ptrArquivoCatalogo);
+                            return 1;
+                        }
+                        else
+                        {
+                            fwrite(&historico, sizeof(historico), 1, ptrArquivoAlugados);
+                            fclose(ptrArquivoAlugados); // Close the alugados file after writing
+                        }
 
                         // Volta o ponteiro para o início do registro atual
                         fseek(ptrArquivoCatalogo, -bytes, SEEK_CUR);
