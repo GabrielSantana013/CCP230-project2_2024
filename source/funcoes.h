@@ -2,7 +2,7 @@
 #define FUNCOES_H
 
 #define DISPONIVEL 0;
-#define ALUGADO 1;
+#define INDISPONIVEL 1;
 
 typedef struct{
 
@@ -23,7 +23,7 @@ typedef struct{
     char editora[50];
     int ano;
     int qttEstoque;
-    int status; //0 - disponivel, 1 - alugado
+    int status; //0 - disponivel, 1 - indisponivel
 
 }Livro;
 

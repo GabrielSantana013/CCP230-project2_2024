@@ -31,17 +31,17 @@ int catalogarLivros()
         livro_atual.autor[strcspn(livro_atual.autor, "\n")] = '\0';
         livro_atual.editora[strcspn(livro_atual.editora, "\n")] = '\0';
 
-        if (livro_atual.status == 0)
+        if (livro_atual.qttEstoque > 0)
         {
             printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | %-7s\n",
                    livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
                    livro_atual.ano, livro_atual.qttEstoque, "Disponivel");
         }
-        else if (livro_atual.status == 1)
+        else if (livro_atual.qttEstoque <= 0)
         {
             printf("%5d | %-50s | %-50s | %-50s | %-5d | %-10d | %-7s\n",
                    livro_atual.livroId, livro_atual.titulo, livro_atual.autor, livro_atual.editora,
-                   livro_atual.ano, livro_atual.qttEstoque, "Alugado");
+                   livro_atual.ano, livro_atual.qttEstoque, "Indisponivel");
         }
     }
 

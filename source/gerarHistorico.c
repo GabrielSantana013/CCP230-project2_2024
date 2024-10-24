@@ -6,9 +6,9 @@
 
 int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
 {
-    FILE *ptrArquivo;
-    ptrArquivo = fopen("historico.bin", "ab+");
-    if (ptrArquivo == NULL)
+    FILE *ptrArquivoHistorico;
+    ptrArquivoHistorico = fopen("historico.bin", "ab+");
+    if (ptrArquivoHistorico == NULL)
     {
         printf("Erro ao abrir o arquivo.\n");
         exit(1);
@@ -36,10 +36,59 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
             strcpy(historico.editora, carrinho->livros[i].editora);
             historico.editora[strcspn(historico.editora, "\n")] = 0;
             historico.quantidade = 1;
-            fwrite(&historico, sizeof(historico), 1, ptrArquivo);
+            fwrite(&historico, sizeof(historico), 1, ptrArquivoHistorico);
         }
     }
 
-    fclose(ptrArquivo);
+    fclose(ptrArquivoHistorico);
+
+    FILE *ptrArquivoCatalogo;
+    // decrementa 1 da quantidade de livros no estoque
+    ptrArquivoCatalogo = fopen("catalogo.txt", "r+");
+
+    if (ptrArquivoCatalogo == NULL)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return -1;
+    }
+    else
+    {
+        Livro livro_atual;
+        size_t bytes = sizeof(Livro);
+
+        for (int i = 0; i < carrinho->tamanho; i++)
+        {
+            rewind(ptrArquivoCatalogo); // Volta ao início do arquivo para cada livro no carrinho
+            while (fread(&livro_atual, bytes, 1, ptrArquivoCatalogo) == 1)
+            {
+                if (carrinho->livros[i].livroId == livro_atual.livroId)
+                {
+                    if (livro_atual.status || livro_atual.qttEstoque <= 0)
+                    {
+                        printf("O livro %s está indisponível no momento.\n", livro_atual.titulo);
+                        fseek(ptrArquivoCatalogo, -bytes, SEEK_CUR);
+                        livro_atual.status = INDISPONIVEL;
+                        fwrite(&livro_atual, bytes, 1, ptrArquivoCatalogo);
+                        break;
+                    }
+                    else
+                    {
+                        // Ajusta a quantidade de estoque
+                        livro_atual.qttEstoque--;
+
+                        // Volta o ponteiro para o início do registro atual
+                        fseek(ptrArquivoCatalogo, -bytes, SEEK_CUR);
+
+                        // Reescreve o livro com a quantidade ajustada
+                        fwrite(&livro_atual, bytes, 1, ptrArquivoCatalogo);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    fclose(ptrArquivoCatalogo);
+
     return 0;
 }
