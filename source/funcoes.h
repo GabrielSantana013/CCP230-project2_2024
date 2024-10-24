@@ -54,7 +54,7 @@ int verificaDigito(char *entrada);
 int cadastrarUsuario(Usuario *ptrUsuario);
 int cadastrarLivro();
 int catalogarLivros();
-int consultarHistorico();
+int consultarHistoricoADM();
 int consultarLivro();
 int relatorioAlugueis();
 int logar(Usuario *ptrUsuario);
@@ -63,7 +63,7 @@ int verificarCadastro(Usuario *ptrUsuario);
 int verificarSenha(Usuario *ptrUsuario);
 int carrinhoDeCompras(Usuario *ptrUsuario);
 int gerarHistorico(Carrinho *carrinho, Usuario *ptrUsuario);
+int consultarHistorico(Usuario *ptrUsuario);
 int exibirLivrosClientes(Usuario *ptrUsuario);
-
 
 #endif
