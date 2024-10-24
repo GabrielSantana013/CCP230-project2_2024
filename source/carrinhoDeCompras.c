@@ -180,7 +180,7 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                     continue;
                 }
 
-                printf("Deseja adicionar o livro %s ao carrinho? (s/n): ", livro.titulo);
+                printf("Deseja adicionar o livro: %s ao carrinho? (s/n): ", livro.titulo);
                 scanf("%c", &escolha);
                 limpaBuffer();
 
@@ -209,7 +209,24 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                 break;
 
             case 4:
-                 printf("Carrinho finalizado, selecione a opção alugar para receber os livros.\n");
+                char senha[255];
+                int retorno;
+
+                printf("Finalizando compra...\n");
+                printf("Digite sua senha: ");
+                fgets(senha, sizeof(senha), stdin);
+                strcpy(ptrUsuario->senha, senha);
+                retorno = verificarSenha(ptrUsuario);
+
+                if (retorno)
+                {
+                    gerarHistorico(carrinho, ptrUsuario);
+                    apagaCarrinho(carrinho);
+                }
+                else
+                {
+                    printf("Senha incorreta.\n");
+                }
                 break;
 
             default:

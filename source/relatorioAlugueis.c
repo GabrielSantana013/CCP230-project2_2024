@@ -16,7 +16,7 @@ int relatorioAlugueis(){
                "CPF", "Nome", "Data", "Titulo", "Autor", "Quantidade");
         printf("----------------------------------------------------------------------------------------------------\n");
         while(fread(&historico, sizeof(historico), 1, ptrArquivo)){
-            printf("%-15s %-20s %-12s %-20s %-20s %-10d %-10.2f\n", 
+            printf("%-15s %-20s %-12s %-20s %-20s %-10d\n", 
                    historico.CPF, historico.nome, historico.data, 
                    historico.titulo, historico.autor, historico.quantidade);
         }
