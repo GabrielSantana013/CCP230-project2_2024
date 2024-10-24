@@ -109,7 +109,7 @@ int consultarLivro()
             printf("Opcao invalida. Nenhum livro encontrado.\n");
         }
     }
-
+    limpaBuffer();
     fclose(ptrArquivoLivro);
     return 0;
 }

@@ -184,7 +184,7 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                 scanf("%c", &escolha);
                 limpaBuffer();
 
-                if (escolha == 's')
+                if (escolha == 's' && livro.status == 0)
                 {
                     adicionarLivro(carrinho, livro);
                 }
