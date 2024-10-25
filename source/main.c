@@ -36,7 +36,7 @@ int main()
     int (*ptrFuncoesCliente[])(Usuario *) = {exibirLivrosClientes, carrinhoDeCompras, devolverLivro, consultarHistorico};
 
     // ponteiro para funcoes de adm
-    int (*ptrFuncoesAdm[])() = {cadastrarLivro, catalogarLivros, consultarHistoricoADM, consultarLivro};
+    int (*ptrFuncoesAdm[])() = {cadastrarLivro, catalogarLivros, consultarHistoricoADM, consultarLivro, relatorioAlugueis};
     Usuario usuario, *ptrUsuario;
     ptrUsuario = &usuario;
 
