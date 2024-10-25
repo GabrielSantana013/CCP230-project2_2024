@@ -184,7 +184,7 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                 scanf("%c", &escolha);
                 limpaBuffer();
 
-                if (escolha == 's' && livro.status == 0)
+                if (escolha == 's' && livro.status == 0 && livro.qttEstoque >0)
                 {
                     adicionarLivro(carrinho, livro);
                 }
@@ -212,7 +212,7 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                 char senha[255];
                 int retorno;
 
-                printf("Finalizando compra...\n");
+                printf("\nFinalizando compra...\n");
                 printf("Digite sua senha: ");
                 fgets(senha, sizeof(senha), stdin);
                 strcpy(ptrUsuario->senha, senha);

@@ -17,7 +17,7 @@ int verificarSenha(Usuario *ptrUsuario){
 
     while(fread(&usuario, sizeof(usuario), 1, ptrArquivo) == 1)
     {
-        if(strcmp(usuario.senha, ptrUsuario->senha) == 0)
+        if(strcmp(usuario.senha, ptrUsuario->senha) == 0 && strcmp(usuario.CPF, ptrUsuario->CPF) == 0)
         {
             fclose(ptrArquivo);
             return 1;

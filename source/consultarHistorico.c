@@ -15,19 +15,19 @@ int consultarHistorico(Usuario *ptrUsuario)
     else
     {
         Historico historico;
-        printf("-----------------------------------------------------------------------------------------------------\n");
+        printf("------------------------------------------------------------------------------------------------------------\n");
         printf("| CPF: %s  | Nome: %s", ptrUsuario->CPF, ptrUsuario->nome);
-        printf("-----------------------------------------------------------------------------------------------------\n");
-        printf("|       Data        |            Titulo            |      Autor      | Quantidade |     Editora     |\n");
-        printf("-----------------------------------------------------------------------------------------------------\n");
+        printf("------------------------------------------------------------------------------------------------------------\n");
+        printf("|       Data        |            Titulo            |      Autor      |     Editora     | Tipo de Transacao |\n");
+        printf("------------------------------------------------------------------------------------------------------------\n");
         while (fread(&historico, sizeof(historico), 1, ptrArquivo))
         {
             if (strcmp(historico.CPF, ptrUsuario->CPF) == 0)
             {
-                printf("| %10s | %-28s | %-15s | %-10d | %-15s |\n", historico.data, historico.titulo, historico.autor, historico.quantidade, historico.editora);
+                printf("| %10s | %-28s | %-15s | %-15s | %-17s |\n", historico.data, historico.titulo, historico.autor, historico.editora, historico.tipo);
             }
         }
-        printf("-----------------------------------------------------------------------------------------------------\n");
+        printf("------------------------------------------------------------------------------------------------------------\n");
     }
 
     fclose(ptrArquivo);
