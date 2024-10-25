@@ -3,25 +3,23 @@
 #include <string.h>
 #include "funcoes.h"
 
+
 int devolverLivro(Usuario *ptrUsuario)
 {
+    FILE *ptrArquivoAlugados;
+
     Historico historico;
     int ID;
 
-    FILE *ptrArquivoHistorico;
-    FILE *ptrArquivoAlugados;
     ptrArquivoAlugados = fopen("alugados.bin", "rb+");
-    if (ptrArquivoAlugados == NULL){
+
+    if (ptrArquivoAlugados == NULL)
+    {
         printf("Nenhum livro alugado.\n");
         return 1;
     }
-    else{
-        ptrArquivoHistorico = fopen("historico.bin", "rb+");
-        if(ptrArquivoHistorico == NULL){
-            printf("Erro ao abrir o arquivo de historico.\n");
-            return 1;
-        }
-
+    else
+    {
         int registro = 0;
         while (fread(&historico, sizeof(historico), 1, ptrArquivoAlugados))
         {
@@ -36,11 +34,11 @@ int devolverLivro(Usuario *ptrUsuario)
         {
             printf("Nenhum registro encontrado para o seu CPF.\n");
             fclose(ptrArquivoAlugados);
-            fclose(ptrArquivoHistorico);
             return 1;
         }
 
-        rewind(ptrArquivoAlugados);
+        //rewind(ptrArquivoAlugados);
+        fseek(ptrArquivoAlugados, 0, SEEK_SET);
 
         printf("-----------------------------------------------------------------------------------------------------\n");
         printf("|  Livros Alugados  |\n");
@@ -59,47 +57,63 @@ int devolverLivro(Usuario *ptrUsuario)
         printf("\nDigite o ID do livro que deseja devolver: \n");
         scanf("%d", &ID);
 
-        while (fread(&historico, sizeof(historico), 1, ptrArquivoAlugados))
+        rewind(ptrArquivoAlugados);
+
+        int achado = 0;
+        size_t bytesHitorico = sizeof(Historico);
+        while(fread(&historico, sizeof(historico), 1, ptrArquivoAlugados))
         {
             if (strcmp(historico.CPF, ptrUsuario->CPF) == 0 && historico.livroId == ID)
             {
-                strcpy(historico.tipo, "Devolvido");
-                historico.tipo[strcspn(historico.tipo, "\n")] = 0;
-                fseek(ptrArquivoHistorico, sizeof(historico), SEEK_END);
-                fwrite(&historico, sizeof(historico), 1, ptrArquivoHistorico);
-
-                fseek(ptrArquivoAlugados, -sizeof(historico), SEEK_CUR);
+                fseek(ptrArquivoAlugados, -bytesHitorico, SEEK_CUR);
+                strcpy(historico.CPF, "*");
+                printf("Livro devolvido com sucesso.\n");
                 fwrite(&historico, sizeof(historico), 1, ptrArquivoAlugados);
+                fclose(ptrArquivoAlugados);
+
+                //atualizar o catalogo
+                FILE *ptrArquivoCatalogo;
+                Livro livro;
+                ptrArquivoCatalogo = fopen("catalogo.txt", "r+");
+                while(fread(&livro, sizeof(livro), 1, ptrArquivoCatalogo))
+                {
+                    if(livro.livroId == ID)
+                    {
+                        fseek(ptrArquivoCatalogo, -sizeof(livro), SEEK_CUR);
+                        livro.qttEstoque += 1;
+                        fwrite(&livro, sizeof(livro), 1, ptrArquivoCatalogo);
+                        fclose(ptrArquivoCatalogo);
+                        break;
+                    }
+                }
+
+                //atualiza
+                FILE *ptrArquivoHistorico;
+                ptrArquivoHistorico = fopen("historico.bin", "ab");
+                if(ptrArquivoHistorico == NULL)
+                {
+                    printf("Erro ao abrir o arquivo de historico.\n");
+                    return 1;
+                }
+                else
+                {
+                    strcpy(historico.CPF, ptrUsuario->CPF);
+                    strcpy(historico.tipo, "Devolucao");
+                    fwrite(&historico, sizeof(historico), 1, ptrArquivoHistorico);
+                    printf("Historico atualizado.\n");
+                }
+                fclose(ptrArquivoHistorico);
+
+                achado = 1;
                 break;
             }
         }
 
-        fclose(ptrArquivoAlugados);
-
-        FILE *ptrArquivoCatalogo;
-        ptrArquivoCatalogo = fopen("catalogo.txt", "r+");
-        if (ptrArquivoCatalogo == NULL)
+        if(!achado)
         {
-            printf("Erro ao abrir o arquivo.\n");
-            return 1;
+            printf("Livro não encontrado.\n");
         }
-        else
-        {
-            Livro livro_atual;
-            size_t bytes = sizeof(Livro);
-            while (fread(&livro_atual, bytes, 1, ptrArquivoCatalogo))
-            {
-                if (livro_atual.livroId == ID)
-                {
-                    livro_atual.qttEstoque++;
-                    fseek(ptrArquivoCatalogo, -bytes, SEEK_CUR);
-                    fwrite(&livro_atual, bytes, 1, ptrArquivoCatalogo);
-                    break;
-                }
-            }
-        }
-
-        fclose(ptrArquivoCatalogo);
+        
         return 0;
     }
 }

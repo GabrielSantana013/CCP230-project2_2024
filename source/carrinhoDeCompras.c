@@ -184,7 +184,7 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
                 scanf("%c", &escolha);
                 limpaBuffer();
 
-                if (escolha == 's' && livro.status == 0)
+                if (escolha == 's' && livro.status == 0 && livro.qttEstoque >0)
                 {
                     adicionarLivro(carrinho, livro);
                 }
