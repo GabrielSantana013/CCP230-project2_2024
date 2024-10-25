@@ -24,7 +24,6 @@ int main()
             strcpy(usuario.nome, "admin\n");
             strcpy(usuario.senha, "admin\n");
             usuario.qttLivrosAlugados = 0;
-            usuario.qttLivrosComprados = 0;
             fwrite(&usuario, sizeof(usuario), 1, ptrArquivo);
         }
     }
@@ -34,7 +33,7 @@ int main()
     int (*ptrFuncoesVisitante[])(Usuario *) = {cadastrarUsuario, logar};
 
     // ponteiro para funcoes de clientes
-    int (*ptrFuncoesCliente[])(Usuario *) = {exibirLivrosClientes, carrinhoDeCompras, carrinhoDeCompras, consultarHistorico};
+    int (*ptrFuncoesCliente[])(Usuario *) = {exibirLivrosClientes, carrinhoDeCompras, devolverLivro, consultarHistorico};
 
     // ponteiro para funcoes de adm
     int (*ptrFuncoesAdm[])() = {cadastrarLivro, catalogarLivros, consultarHistoricoADM, consultarLivro};

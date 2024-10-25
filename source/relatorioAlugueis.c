@@ -13,12 +13,12 @@ int relatorioAlugueis(){
     }
     else{
         printf("%-15s %-20s %-12s %-20s %-20s %-10s\n", 
-               "CPF", "Nome", "Data", "Titulo", "Autor", "Quantidade");
+               "CPF", "Nome", "Data", "Titulo", "Autor", "Tipo de transação");
         printf("----------------------------------------------------------------------------------------------------\n");
         while(fread(&historico, sizeof(historico), 1, ptrArquivo)){
-            printf("%-15s %-20s %-12s %-20s %-20s %-10d\n", 
+            printf("%-15s %-20s %-12s %-20s %-20s %-17s\n", 
                    historico.CPF, historico.nome, historico.data, 
-                   historico.titulo, historico.autor, historico.quantidade);
+                   historico.titulo, historico.autor, historico.tipo);
         }
     }
     fclose(ptrArquivo);

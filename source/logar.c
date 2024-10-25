@@ -42,7 +42,6 @@ int logar(Usuario *ptrUsuario)
                 //passar os dados do usuario para o ponteiro
                 strcpy(ptrUsuario->nome, usuario.nome);
                 ptrUsuario->qttLivrosAlugados = usuario.qttLivrosAlugados;
-                ptrUsuario->qttLivrosComprados = usuario.qttLivrosComprados;
                 
                 fclose(ptrArquivo);
                 return 2;

@@ -7,6 +7,7 @@
 int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
 {
     FILE *ptrArquivoHistorico;
+    FILE *ptrArquivoAlugados;
     Historico historico;
 
     ptrArquivoHistorico = fopen("historico.bin", "ab+");
@@ -17,6 +18,13 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
     }
     else
     {
+        ptrArquivoAlugados = fopen("alugados.bin", "ab+");
+        if (ptrArquivoAlugados == NULL){
+            printf("Erro ao abrir o arquivo.\n");
+            fclose(ptrArquivoAlugados);
+            return 1;
+        }
+    
         time_t t = time(NULL);
         struct tm tm = *localtime(&t);
 
@@ -30,21 +38,26 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
         strcpy(historico.data, data);
         for (int i = 0; i < carrinho->tamanho; i++)
         {
+            historico.livroId = carrinho->livros[i].livroId;
             strcpy(historico.titulo, carrinho->livros[i].titulo);
             historico.titulo[strcspn(historico.titulo, "\n")] = 0;
             strcpy(historico.autor, carrinho->livros[i].autor);
             historico.autor[strcspn(historico.autor, "\n")] = 0;
             strcpy(historico.editora, carrinho->livros[i].editora);
             historico.editora[strcspn(historico.editora, "\n")] = 0;
-            historico.quantidade = 1;
+            strcpy(historico.tipo, "Alugado");
+            historico.tipo[strcspn(historico.tipo, "\n")] = 0;
             fwrite(&historico, sizeof(historico), 1, ptrArquivoHistorico);
+
+            fwrite(&historico, sizeof(historico), 1, ptrArquivoAlugados);
+            usuario->qttLivrosAlugados++;
         }
     }
 
+    fclose(ptrArquivoAlugados);
     fclose(ptrArquivoHistorico);
 
     FILE *ptrArquivoCatalogo;
-    FILE *ptrArquivoAlugados;
     // decrementa 1 da quantidade de livros no estoque
     ptrArquivoCatalogo = fopen("catalogo.txt", "r+");
 
@@ -77,19 +90,6 @@ int gerarHistorico(Carrinho *carrinho, Usuario *usuario)
                     {
                         // Ajusta a quantidade de estoque
                         livro_atual.qttEstoque--;
-                        
-                        ptrArquivoAlugados = fopen("alugados.bin", "ab+");
-                        if (ptrArquivoAlugados == NULL)
-                        {
-                            printf("Erro ao abrir o arquivo.\n");
-                            fclose(ptrArquivoCatalogo);
-                            return 1;
-                        }
-                        else
-                        {
-                            fwrite(&historico, sizeof(historico), 1, ptrArquivoAlugados);
-                            fclose(ptrArquivoAlugados); // Close the alugados file after writing
-                        }
 
                         // Volta o ponteiro para o início do registro atual
                         fseek(ptrArquivoCatalogo, -bytes, SEEK_CUR);
