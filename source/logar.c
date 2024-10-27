@@ -9,7 +9,7 @@ int logar(Usuario *ptrUsuario)
     FILE *ptrArquivo;
     Usuario usuario;
 
-    printf("\n===FAÇA LOGIN===\n");
+    printf("\n===FACA LOGIN===\n");
 
     ptrArquivo = fopen("clientes.bin", "rb");
     if (ptrArquivo == NULL)

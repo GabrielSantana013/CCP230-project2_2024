@@ -3,48 +3,51 @@
 #include <string.h>
 #include "funcoes.h"
 
-void inicializarCarrinho(Carrinho **carrinho){
+void inicializarCarrinho(Carrinho **carrinho)
+{
 
-    *carrinho = (Carrinho *) malloc(sizeof(Carrinho)); 
-    
-    if(*carrinho == NULL){
+    *carrinho = (Carrinho *)malloc(sizeof(Carrinho));
+
+    if (*carrinho == NULL)
+    {
         printf("Erro ao alocar memoria na criacao do carrinho.\n");
         exit(1);
     }
 
     (*carrinho)->capacidade = 10;
     (*carrinho)->tamanho = 0;
-    
 
     (*carrinho)->livros = (Livro *)malloc((*carrinho)->capacidade * sizeof(Livro));
-    if((*carrinho)->livros == NULL){
+    if ((*carrinho)->livros == NULL)
+    {
         printf("Erro ao alocar memoria para os livros do carrinho.\n");
         exit(1);
     }
 }
 
-
-void removerLivro(Carrinho *carrinho, size_t id){
+void removerLivro(Carrinho *carrinho, size_t id)
+{
 
     int encontrado = 0;
 
-    for(int i = 0; i < carrinho->tamanho; i++){
-        //procura o item pelo id
-        if(carrinho->livros[i].livroId == id)
+    for (int i = 0; i < carrinho->tamanho; i++)
+    {
+        // procura o item pelo id
+        if (carrinho->livros[i].livroId == id)
         {
             encontrado = 1;
-            //pega os itens a partir do encontrado e joga o próximo na posição atual
-            //assim ele desloca todos os itens para a esquerda
-            for(int j = i; j < carrinho->tamanho -1; j++)
+            // pega os itens a partir do encontrado e joga o próximo na posição atual
+            // assim ele desloca todos os itens para a esquerda
+            for (int j = i; j < carrinho->tamanho - 1; j++)
             {
-                carrinho->livros[j] = carrinho->livros[j+1];
+                carrinho->livros[j] = carrinho->livros[j + 1];
             }
             carrinho->tamanho--;
             break;
         }
     }
 
-    if(!encontrado)
+    if (!encontrado)
     {
         printf("Livro nao encontrado no carrinho.\n");
     }
@@ -54,7 +57,7 @@ void exibirCarrinho(Carrinho *carrinho)
 {
 
     printf("\n\n===Seu carrinho atual===\n");
-    for(int i = 0; i < carrinho->tamanho; i++)
+    for (int i = 0; i < carrinho->tamanho; i++)
     {
         printf("ID: %d\n", carrinho->livros[i].livroId);
         printf("Titulo: %s", carrinho->livros[i].titulo);
@@ -68,33 +71,34 @@ void exibirCarrinho(Carrinho *carrinho)
     printf("===Fim do carrinho===\n\n");
 }
 
-void apagaCarrinho(Carrinho *carrinho){
+void apagaCarrinho(Carrinho *carrinho)
+{
 
     free(carrinho->livros);
-    //Boas práticas p/ evitar erros de memória
+    // Boas práticas p/ evitar erros de memória
     carrinho->livros = NULL;
     carrinho->capacidade = 0;
     carrinho->tamanho = 0;
-
 }
 
-void adicionarLivro(Carrinho *carrinho, Livro livro){
+void adicionarLivro(Carrinho *carrinho, Livro livro)
+{
 
-    for(int i = 0; i < carrinho->tamanho; i++)
+    for (int i = 0; i < carrinho->tamanho; i++)
     {
-        if(carrinho->livros[i].livroId == livro.livroId)
+        if (carrinho->livros[i].livroId == livro.livroId)
         {
             printf("Livro ja adicionado ao carrinho.\n");
             return;
         }
     }
 
-
-    if(carrinho->tamanho >= carrinho->capacidade)
+    if (carrinho->tamanho >= carrinho->capacidade)
     {
         carrinho->capacidade += 5;
         carrinho->livros = (Livro *)realloc(carrinho->livros, carrinho->capacidade * sizeof(Livro));
-        if(carrinho->livros == NULL){
+        if (carrinho->livros == NULL)
+        {
             printf("Erro ao alocar memoria para adicionar livro.\n");
             exit(1);
         }
@@ -103,7 +107,6 @@ void adicionarLivro(Carrinho *carrinho, Livro livro){
     carrinho->livros[carrinho->tamanho] = livro;
     carrinho->tamanho++;
 }
-
 
 Livro buscaLivro(int id)
 {
@@ -165,73 +168,76 @@ int carrinhoDeCompras(Usuario *ptrUsuario)
 
         switch (opcao)
         {
-            case 1:
+        case 1:
+        {
+            int id;
+            printf("Digite o ID do livro que voce deseja adicionar ao carrinho: ");
+            scanf("%d", &id);
+            limpaBuffer();
+
+            livro = buscaLivro(id);
+
+            if (livro.livroId == -1)
             {
-                int id;
-                printf("Digite o ID do livro que voce deseja adicionar ao carrinho: ");
-                scanf("%d", &id);
-                limpaBuffer();
-
-                livro = buscaLivro(id);
-
-                if (livro.livroId == -1)
-                {
-                    printf("Livro nao encontrado!\n");
-                    continue;
-                }
-
-                printf("Deseja adicionar o livro: %s ao carrinho? (s/n): ", livro.titulo);
-                scanf("%c", &escolha);
-                limpaBuffer();
-
-                if (escolha == 's' && livro.status == 0 && livro.qttEstoque >0)
-                {
-                    adicionarLivro(carrinho, livro);
-                }
-                else
-                {
-                    printf("Livro nao adicionado ao carrinho.\n");
-                }
-                break;
+                printf("Livro nao encontrado!\n");
+                continue;
             }
-            case 2:
+
+            printf("Deseja adicionar o livro: %s ao carrinho? (s/n): ", livro.titulo);
+            scanf("%c", &escolha);
+            limpaBuffer();
+
+            if (escolha == 's' && livro.status == 0 && livro.qttEstoque > 0)
             {
-                int id;
-                printf("Digite o ID do livro que deseja remover do carrinho: ");
-                scanf("%d", &id);
-                limpaBuffer();
-
-                removerLivro(carrinho, id);
-                break;
+                adicionarLivro(carrinho, livro);
             }
-            case 3:
-                exibirCarrinho(carrinho);
-                break;
+            else
+            {
+                printf("Livro nao adicionado ao carrinho.\n");
+            }
+            break;
+        }
+        case 2:
+        {
+            int id;
+            printf("Digite o ID do livro que deseja remover do carrinho: ");
+            scanf("%d", &id);
+            limpaBuffer();
 
-            case 4:
-                char senha[255];
-                int retorno;
+            removerLivro(carrinho, id);
+            break;
+        }
+        case 3:
+        {
+            exibirCarrinho(carrinho);
+            break;
+        }
+        case 4:
+        {
+            char senha[255];
+            int retorno;
 
-                printf("\nFinalizando compra...\n");
-                printf("Digite sua senha: ");
-                fgets(senha, sizeof(senha), stdin);
-                strcpy(ptrUsuario->senha, senha);
-                retorno = verificarSenha(ptrUsuario);
+            printf("\nFinalizando compra...\n");
+            printf("Digite sua senha: ");
+            fgets(senha, sizeof(senha), stdin);
+            strcpy(ptrUsuario->senha, senha);
+            retorno = verificarSenha(ptrUsuario);
 
-                if (retorno)
-                {
-                    gerarHistorico(carrinho, ptrUsuario);
-                    apagaCarrinho(carrinho);
-                }
-                else
-                {
-                    printf("Senha incorreta.\n");
-                }
-                break;
+            if (retorno)
+            {
+                gerarHistorico(carrinho, ptrUsuario);
+                apagaCarrinho(carrinho);
+            }
+            else
+            {
+                printf("Senha incorreta.\n");
+            }
+            break;
 
-            default:
-                printf("Opcao invalida!\n");
-                break;
+        default:
+            printf("Opcao invalida!\n");
+            break;
+        }
         }
     } while (opcao != 4);
 
